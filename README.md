@@ -42,13 +42,13 @@ view example :
 - we need to add access right
 - add the file in manifest.py
 
-
+----
 ### Add Buttons In List View Header in Odoo 37:
 - `confirm ='are you sure ?''` attr. that show confirmation msg with `name="action_confirm"`
 - name : method name in model.
 - to get view name from dev.tools->Edit View list
 - in tree view we don't need to set id for button 
-
+----
 ### add image field and show it  /38 .
 in models : 
 
@@ -56,18 +56,20 @@ in models :
 
 in XML :
 
-`<field name="image" widget="image"  class="oe_avatar"/>`
+` <field name="image" widget="image"  class="oe_avatar"/> `
 
+----
 ### add sample data /39 
 - add `sample='1'` in tree or kanban tag
-
+----
 ###  show optional field /40:
 - add `optional="show"` to field that we want to show. or `optional='hide'` it will be by default hidden.
 
-
+----
 ### use _rec_name 41
 to reference a name of model in many2one field.
 
 `_rec_name = 'field_name'`
 
 
+----
