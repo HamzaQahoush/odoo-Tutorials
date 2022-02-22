@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    tree view shows all appointments-->
+    <record model="ir.ui.view" id="view_appointment_tree">
+        <field name="name">hospital.appointment.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="action_done" string="Mark as Done" type="object"
+                            class="btn-primary"/>
+                </header>
+
+                <field name="ref"/>
+                <field name="patient_id"/>
+                <field name="note" optional="show"/>
+                <field name="state" optional="show"/>
+                <field name="note" optional="show"/>
+                <field name="age" optional="show"/>
+
+                <field name="date_appointment"/>
+                <field name="date_checkup"/>
+
+
+            </tree>
+
+
+        </field>
+    </record>
+
+
+    <!--    view form to add an appointment-->
+    <record model="ir.ui.view" id="view_appointments_form">
+        <field name="name">hospital.appointments.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm" type="object"
+                            class="btn-primary" states="draft" confirm="Are you sure that you need to confirm?"/>
+                    <button id="button_done" name="action_done" string=" Mark as Done" type="object" class="btn-primary"
+                            states="confirm"/>
+                    <button id="button_draft" name="action_draft" string="Mark as Draft" type="object"
+                            class="btn-primary" states="cancel" confirm="Are you sure that you need to cancel?"/>
+                    <button id="button_cancel" name="action_cancel" string="cancel" type="object"
+                            states="draft,done,confirm"/>
+
+
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"
+                           statusbar_visible="draft,done,confirm"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref"/>
+                        </h1>
+                    </div>
+
+
+                    <group>
+                        <group string=" add patient">
+                            <group>
+                                <field name="patient_id"/>
+                                <field name="age"/>
+                                <field name="gender" readonly="1" force_save="1"/>
+
+                            </group>
+                            <group>
+                                <field name="doctor_id" />
+                                <field name="note"/>
+                                <field name="date_appointment"/>
+                                <field name="date_checkup"/>
+
+
+                            </group>
+
+
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+
+    <!--    for filter and search appointment by name-->
+    <record id="view_appointment_search" model="ir.ui.view">
+        <field name="name">patient_appointment.view.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="appointment search">
+                <field name="ref"/>
+                <field name="patient_id"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="patient name" name="patient_id" context="{'group_by': 'patient_id'}"/>
+
+
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!--    action for appointment tab to show all appointment-->
+    <record id="appointments_action" model="ir.actions.act_window">
+        <field name="name">appointments</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                create an appointment
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="appointment_tab" name="Appointments" sequence="2"
+              parent="menu_hospital_root"/>
+
+    <menuitem id="appointment_tab_2" name="appointments" sequence="2"
+              parent="appointment_tab" action="appointments_action"/>
+    <menuitem id="create_appointment_menu" name="Create Appointment " sequence="10"
+              parent="appointment_tab" action="create_appointment_action"/>
+    <menuitem id="menu_search_patient" name="Search Appointment" sequence="24"
+              parent="appointment_tab" action="search_appointment_action"/>
+</odoo>

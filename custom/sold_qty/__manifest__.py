@@ -1,0 +1,16 @@
+{
+    'name': 'sold report',
+    'version': '1.1',
+    'summary': 'sold report ',
+    'sequence': 10,
+    'description': """sold report""",
+    'category': 'Inventory',
+    'website': '',
+    'depends': ['stock', ],
+    'data': ['wizard/sold_qty.xml'],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

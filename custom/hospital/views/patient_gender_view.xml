@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="male_action" model="ir.actions.act_window">
+        <field name="name">Male Patients</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="context">{'default_gender' : 'male','default_note': 'New patient', 'hide_gender':1}</field>
+        <field name="domain">[('gender', '=', 'male')]</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                create your first male patient
+
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="male_tab" name="Male" sequence="15"
+              parent="menu_patient_root" action="male_action"/>
+
+
+    <record id="female_action" model="ir.actions.act_window">
+        <field name="name">Female Patients</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="context">{'default_gender' : 'female' , 'default_note': 'New patient', 'hide_gender':1}</field>
+        <field name="domain">[('gender', '=', 'female')]</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                create your first female patient
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="female_tab" name="Female" sequence="14"
+              parent="menu_patient_root" action="female_action"/>
+
+
+</odoo>

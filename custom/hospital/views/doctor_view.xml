@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_kanban" model="ir.ui.view">
+        <field name="name">hospital.doctor.kanban</field>
+        <field name="model">doctor.hospital</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="id"/>
+                <field name="doctor_name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_record_title">
+                                <ul>
+                                    <li>Name :
+                                        <field name="doctor_name"/>
+
+                                    </li>
+                                    <li>Age:
+                                        <field name="age"/>
+
+                                    </li>
+                                    <li>gender:
+                                        <field name="gender"/>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_doctor_tree">
+        <field name="name">hospital.doctor.tree</field>
+        <field name="model">doctor.hospital</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+
+                <field name="doctor_name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="note"/>
+
+
+            </tree>
+
+
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_doctor_form">
+        <field name="name">hospital.doctor.form</field>
+        <field name="model">doctor.hospital</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <sheet>
+
+                    <field name="image" widget="image" class="oe_avatar"/>
+
+                    <group>
+                        <group string=" add doctor">
+                            <group>
+                                <field name="doctor_name"/>
+                                <field name="age"/>
+
+
+                            </group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="note"/>
+
+
+                            </group>
+
+
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+    <record id="view_doctor_search" model="ir.ui.view">
+        <field name="name">doctor.view.search</field>
+        <field name="model">doctor.hospital</field>
+        <field name="arch" type="xml">
+            <search string="Doctor ">
+                <field name="doctor_name"/>
+                <field name="age"/>
+                <separator/>
+                <filter string="Male" name="male" domain="[('gender','=','male')]"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"/>
+                <filter string="Others" name="other" domain="[('gender','=','other')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
+
+                </group>
+
+            </search>
+        </field>
+    </record>
+    <record id="action_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name="res_model">doctor.hospital</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                create your first doctor
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_doctor" name="Doctors" sequence="24"
+              parent="menu_hospital_root"/>
+    <menuitem id="sub_menu_doctor" name="Doctor" sequence="25"
+              parent="menu_doctor" action="action_doctor"/>
+
+</odoo>

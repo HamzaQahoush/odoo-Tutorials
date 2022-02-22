@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sold_qty_wizard">
+        <field name="name">sold_qty_wizard_form</field>
+        <field name="model">sold.qty.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group string=" request date between">
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                        <field name="order_select" widget="selection"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight"/>
+                    <!--                    <button name="agent_exceed_limit" string="Request Manager to Approve Sale" type="object"         class="oe_highlight" />-->
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_sold_qty" model="ir.actions.act_window">
+        <field name="name">sold qty</field>
+        <field name="res_model">sold.qty.wizard</field>
+        <field name="view_mode">form</field>
+            <field name="view_id" ref="sold_qty_wizard"/>
+    </record>
+    <!-- Action Menu Item Related To Above Action Window -->
+    <menuitem
+            action="action_sold_qty"
+            id="action_menu_sold_qty"
+            parent="stock.menu_warehouse_report"
+            name="Sold Report"
+            sequence="1"/>
+</odoo>
