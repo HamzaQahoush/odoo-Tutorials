@@ -1,10 +1,25 @@
 from odoo import api, fields, models, tools, _
+from odoo.exceptions import ValidationError
 
 
 class HospitalPatient(models.Model):
     _name = "hospital.patient"
     _description = "hospital patient description"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = "id desc"
+
+    @api.model
+    def default_get(self, fields):
+        """
+         - override the default get function and set default values for fields.
+         - res : will be a dic {key:value} for each field.
+         - triggered when clicking on create.
+         - fields is list []  contain all fields , and res will be dic {key:value}
+
+        """
+        res = super(HospitalPatient, self).default_get(fields)
+        res['note'] = 'New  Patient Created'
+        return res
 
     name = fields.Char(string='Name', required=True, tracking=True)
     age = fields.Integer(string='Age', required=True, tracking=True)
@@ -26,6 +41,7 @@ class HospitalPatient(models.Model):
                             default=lambda self: _('New'))
     appointment_count = fields.Integer(string='appointments count', tracking=True, compute='_compute_appointment_count')
     image = fields.Binary(string='patient name')
+    appointment_ids = fields.One2many('hospital.appointment', 'patient_id', string="Appointments")
 
     def _compute_appointment_count(self):
         for rec in self:
@@ -58,16 +74,22 @@ class HospitalPatient(models.Model):
         res = super(HospitalPatient, self).create(values)
         return res
 
-    @api.model
-    def default_get(self, fields):
-        """
-         - override the default get function and set default values for fields.
-         - res : will be a dic {key:value} for each field.
-         - triggered when clicking on create.
-         - fields is list []  contain all fields , and res will be dic {key:value}
+    @api.constrains('name')
+    def check_name(self):
+        for rec in self:
+            patient = self.env["hospital.patient"].search([('name', '=', rec.name), ('id', '!=', rec.id)])
+            if patient:
+                raise ValidationError(f'You cannot add  {rec.name} twice !!')
 
-        """
-        res = super(HospitalPatient, self).default_get(fields)
-        print('here is the overriding method')
+    @api.constrains('age')
+    def check_age(self):
+        for rec in self:
+            if rec.age == 0:
+                raise ValidationError(f'You cannot add  {rec.age} cannot be 0  !!')
 
-        return res
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = f'[ {rec.reference}]  {rec.name}'
+            result.append((rec.id, name))
+        return result

@@ -19,6 +19,9 @@
         'views/patient_gender_view.xml',
         'views/appointment_view.xml',
         'views/doctor_view.xml',
+        'report/patient_details_template.xml',
+        'report/patient_card.xml',
+        'report/report.xml',
 
     ],
     'demo': [],

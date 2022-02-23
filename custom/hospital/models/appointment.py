@@ -1,16 +1,18 @@
 from odoo import api, fields, models, tools, _
+from odoo.exceptions import ValidationError
 
 
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _description = "hospital patient Appointment description"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = "ref desc"
 
     ref = fields.Char(string='Patient ref', required=True, tracking=True, copy=False,
                       default=lambda self: _('New'))
     patient_id = fields.Many2one('hospital.patient', string='patient')
-    doctor_id = fields.Many2one('doctor.hospital', string='doctor',required=True)
-    age = fields.Integer(string='age', related='patient_id.age', tracking=True)
+    doctor_id = fields.Many2one('doctor.hospital', string='doctor', required=True)
+    age = fields.Integer(string='age', related='patient_id.age', tracking=True, store=True)
     note = fields.Text(string='Description')
     state = fields.Selection([('draft', 'Draft'), ('confirm', 'confirmed'),
                               ('done', 'Done'), ('cancel', 'Cancelled')
@@ -24,6 +26,9 @@ class HospitalAppointment(models.Model):
         ('other', 'Other'),
 
     ], required=True, default='male', tracking=True)
+    prescription = fields.Text(string='prescription')
+    prescription_line_id = fields.One2many('appointment.prescription.line', 'appointment_id',
+                                           string="prescription line")
 
     def action_confirm(self):
         for rec in self:
@@ -60,3 +65,20 @@ class HospitalAppointment(models.Model):
         else:
             self.gender = ''
             self.note = ''
+
+    def unlink(self):
+        """
+        to override delete method
+        """
+        if self.state == 'done':
+            raise ValidationError(f'You cannot Delete {self.ref} as it in Done state!!')
+        return super(HospitalAppointment, self).unlink()
+
+
+class AppointmentPrescriptionLine(models.Model):
+    _name = "appointment.prescription.line"
+    _description = "appointment prescription line"
+
+    name = fields.Char(string='Medicine')
+    qty = fields.Integer(string="Quantity")
+    appointment_id = fields.Many2one('hospital.appointment', string="appointment")
