@@ -93,3 +93,14 @@ class HospitalPatient(models.Model):
             name = f'[ {rec.reference}]  {rec.name}'
             result.append((rec.id, name))
         return result
+
+    def action_open_appointment(self):
+        # to return view of appointment after clicking on Smart Buttons
+        return {
+            'name': _('appointment'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.appointment',
+            'target': 'current',
+            'domain': [('patient_id', '=', self.id)]
+        }

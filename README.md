@@ -243,3 +243,139 @@ docs: is equivalent to self
 `
 
 
+### Create Excel Report In Odoo 52 :
+- download Base report xlsx from odoo store.
+- add it in same directory of your module.
+- `pip3 install xlsxwriter`
+- `pip3 install xlrd`
+- add `'report_xlsx'` in manifest file of module.
+- add report record in report file as we did in pdf , be sure to add the report directory in manifest file.
+- 
+Example:
+```
+        <record id="report_patient_card_xls" model="ir.actions.report">
+        <field name="name">Patient Card Excel </field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">hospital.report_patient_card_xlsx</field>
+        <field name="report_file">hospital.report_patient_card_xlsx</field>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="binding_type">report</field>
+
+
+```
+- add python file e.g `file_xls.py`
+- add init file and import created file.
+  - import `report` file in module `__init__` file.
+
+- add class in python file as following , don't forget to use the id 
+```
+from odoo import models
+import base64
+import io
+
+class PatientXlsx(models.AbstractModel):
+    _name = 'report.hospital.report_patient_card_xlsx'
+    _inherit = 'report.report_xlsx.abstract'
+
+    def generate_xlsx_report(self, workbook, data, patients):
+        sheet = workbook.add_worksheet('patient ID xls')
+        bold = workbook.add_format({'bold': True})
+        row, col = 3, 3
+        for obj in patients:
+            print(type(patients))
+            # report_name = obj.name
+            # One sheet by partner
+            bold = workbook.add_format({'bold': True})
+            row += 1
+            sheet.merge_range(row, col, row, col + 1, 'ID Card')
+            row += 1
+            sheet.write(row, col, 'Name')
+            sheet.write(row, col + 1, obj.name)
+            row += 1
+            sheet.write(row, col, 'age')
+            sheet.write(row, col + 1, obj.age)
+            row+=1
+            sheet.write(row, col, 'ref')
+            sheet.write(row, col + 1, obj.reference)
+
+
+
+```
+
+
+- if we need to generate seperate sheet for each record , 
+- add sheet with dynamic name in for loop , row, col also
+- `sheet.set_column('D:D',12)` to set width of column.
+- To add image field we need to import base64, io
+- syntax for image :
+- ` if obj.image:
+                patient_image = io.BytesIO(base64.b64decode(obj.image))
+                sheet.insert_image(row, col, "image.png", {'image_data': patient_image, 'x_scale': 0.5, 'y_scale': 0.5})
+`
+
+
+
+###  Server Action Add New Action To Action Button In Odoo 53 
+
+
+example  in appointment view:
+```
+    <record id="action_confirm_appointments" model="ir.actions.server">
+        <field name="name">Confirm appointment</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="state">code</field>
+        <field name="code">records.action_confirm()</field>
+
+    </record>
+
+```
+
+### 54.URL Actions In Odoo
+
+- add button under action:
+
+` <button  name="action_url" string="open URL" type="object"
+                           />
+`
+- define a function in the model :
+`'target': 'new'` to add it in new window,
+```
+    def action_url(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': 'https://www.youtube.com/watch?v=7jbaJSZLL8A&list=PLqRRLx0cl0homY1elJbSoWfeQbRKJ-oPO&index=54',
+            'target': 'self',
+        }
+
+
+```
+
+### 55.How To Add Smart Buttons In Odoo14 | Odoo Smart Button Of Type Object
+```
+     <div class="oe_button_box" name="button_box">
+                        <button name="action_open_appointment" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="appointment_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Appointments</span>
+                            </div>
+                        </button>
+                    </div>
+```
+- we need to define a function , if we need to return a view.
+example :
+```
+    def action_open_appointment(self):
+        # to return view of appointment after clicking on Smart Buttons
+        return {
+            'name': _('appointment'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.appointment',
+            'target': 'current',
+            'domain': [('patient_id', '=', self.id)]
+        }
+
+
+```

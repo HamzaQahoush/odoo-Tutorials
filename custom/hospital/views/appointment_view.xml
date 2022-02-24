@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="action_confirm_appointments" model="ir.actions.server">
+        <field name="name">Confirm appointment</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="state">code</field>
+        <field name="code">records.action_confirm()</field>
+
+    </record>
     <!--    tree view shows all appointments-->
     <record model="ir.ui.view" id="view_appointment_tree">
         <field name="name">hospital.appointment.tree</field>
@@ -45,6 +53,8 @@
                             class="btn-primary" states="cancel" confirm="Are you sure that you need to cancel?"/>
                     <button id="button_cancel" name="action_cancel" string="cancel" type="object"
                             states="draft,done,confirm"/>
+                    <button  name="action_url" string="open URL" type="object"
+                           />
 
 
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"

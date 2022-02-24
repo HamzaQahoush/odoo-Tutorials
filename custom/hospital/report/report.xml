@@ -22,4 +22,17 @@
 
 
     </record>
+
+
+        <record id="report_patient_card_xls" model="ir.actions.report">
+        <field name="name">Patient Card Excel </field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">hospital.report_patient_card_xlsx</field>
+        <field name="report_file">hospital.report_patient_card_xlsx</field>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="binding_type">report</field>
+
+
+    </record>
 </odoo>

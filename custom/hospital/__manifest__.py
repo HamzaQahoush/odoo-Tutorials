@@ -7,7 +7,9 @@
     'category': 'Productivity/Discuss',
     'website': 'https://www.odoo.com/page/billing',
     'depends': ['sale',
-                'mail'],
+                'mail',
+                'report_xlsx',
+                ],
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',

@@ -74,6 +74,13 @@ class HospitalAppointment(models.Model):
             raise ValidationError(f'You cannot Delete {self.ref} as it in Done state!!')
         return super(HospitalAppointment, self).unlink()
 
+    def action_url(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': 'https://www.youtube.com/watch?v=7jbaJSZLL8A&list=PLqRRLx0cl0homY1elJbSoWfeQbRKJ-oPO&index=54',
+            'target': 'self',
+        }
+
 
 class AppointmentPrescriptionLine(models.Model):
     _name = "appointment.prescription.line"
