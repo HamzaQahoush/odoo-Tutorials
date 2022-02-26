@@ -6,15 +6,17 @@
         <field name="arch" type="xml">
             <form string="Create new Appointment ">
                 <group class="oe_title">
-                    <field name="appointment_date" />
-                     <field name="patient_id" />
+                    <field name="appointment_date"/>
+                    <field name="doctor_id"/>
+                    <field name="patient_id"/>
 
                 </group>
                 <footer>
 
-                    <button name="create_appointment_action" type="object" string="create" class="btn-primary" />
-                    <button name="view_appointments_action" type="object" string="view appointment" class="btn-primary" />
-                     <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="create_appointment_action" type="object" string="create" class="btn-primary"/>
+                    <button name="view_appointments_action" type="object" string="view appointment"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
 
                 </footer>
             </form>

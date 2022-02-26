@@ -19,6 +19,7 @@ class HospitalDoctor(models.Model):
     note = fields.Text(string='Description')
     image = fields.Binary(string='doctor image')
     appointment_count = fields.Integer(string='appointments count', tracking=True, compute='_compute_appointment_count')
+    active = fields.Boolean(string="Active", default=True)
 
     def copy(self, default=None):
         if default is None:

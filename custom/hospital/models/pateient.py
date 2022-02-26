@@ -76,6 +76,7 @@ class HospitalPatient(models.Model):
 
     @api.constrains('name')
     def check_name(self):
+        # check duplicate record
         for rec in self:
             patient = self.env["hospital.patient"].search([('name', '=', rec.name), ('id', '!=', rec.id)])
             if patient:
@@ -88,6 +89,7 @@ class HospitalPatient(models.Model):
                 raise ValidationError(f'You cannot add  {rec.age} cannot be 0  !!')
 
     def name_get(self):
+        # to modify the name in list view
         result = []
         for rec in self:
             name = f'[ {rec.reference}]  {rec.name}'

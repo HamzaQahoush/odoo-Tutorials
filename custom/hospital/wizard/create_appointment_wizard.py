@@ -7,6 +7,15 @@ class CreateAppointmentWizard(models.TransientModel):
 
     appointment_date = fields.Date(string='Date', required=False)
     patient_id = fields.Many2one('hospital.patient', string='Patient', required=True)
+    doctor_id = fields.Many2one('doctor.hospital', string='Doctor', required=True)
+
+    @api.model
+    def default_get(self, fields):
+        res = super(CreateAppointmentWizard, self).default_get(fields)
+        print('this is from default get', self._context)
+        if self._context.get('active_id'):
+            res['patient_id'] = self._context.get('active_id')
+        return res
 
     def create_appointment_action(self):
         """
@@ -19,7 +28,7 @@ class CreateAppointmentWizard(models.TransientModel):
         """
         vals = {
             'patient_id': self.patient_id.id,
-            'doctor_id' : 1,
+            'doctor_id': self.doctor_id.id,
             'date_appointment': self.appointment_date
         }
         print(vals)
@@ -59,4 +68,3 @@ class CreateAppointmentWizard(models.TransientModel):
             'view_mode': 'tree,form',
             'target': 'current'
         }
-

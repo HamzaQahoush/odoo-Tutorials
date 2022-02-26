@@ -59,7 +59,7 @@
         <field name="name">hospital.patient.tree</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree expand="1">
 
                 <field name="name"/>
                 <field name="gender"/>
@@ -204,7 +204,7 @@
                 <group expand="1" string="Group By">
                     <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
                     <filter string="Name" name="patient_name" context="{'group_by': 'name'}"/>
-                    <filter string="Responsible" name="responsible_id" context="{'group_by': 'responsible_id'}"/>
+                    <filter string="Responsible" name="responsible_id" context="{'group_by':'responsible_id'}"/>
 
 
                 </group>
@@ -213,12 +213,14 @@
         </field>
     </record>
 
-    <!--   form,tree action_view-->
+    <!--   form,tree action_-->
     <record id="action_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>
         <field name='type'>ir.actions.act_window</field>
         <field name="res_model">hospital.patient</field>
-        <!--        <field name="context">{'search_default_male' : 1}</field>-->
+        <field name="context">{'search_default_male' : 1}</field>
+        <field name="context">{'search_default_responsible_id': 1}</field>
+
         <field name="res_model">hospital.patient</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
@@ -236,6 +238,7 @@
               parent="menu_hospital_root"/>
     <menuitem id="patient_patient_root" name="Patient" sequence="10"
               parent="menu_patient_root" action="action_patient"/>
+
 
 
 </odoo>
