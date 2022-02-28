@@ -10,7 +10,7 @@ class HospitalAppointment(models.Model):
 
     ref = fields.Char(string='Patient ref', required=True, tracking=True, copy=False,
                       default=lambda self: _('New'))
-    patient_id = fields.Many2one('hospital.patient', string='patient')
+    patient_id = fields.Many2one('hospital.patient', string='patient',  domain="")
     doctor_id = fields.Many2one('doctor.hospital', string='doctor', required=True)
     age = fields.Integer(string='age', related='patient_id.age', tracking=True, store=True)
     note = fields.Text(string='Description')
@@ -54,6 +54,15 @@ class HospitalAppointment(models.Model):
         # output values= {'state': 'draft', 'name':'Hamza', 'age':'34' }
         res = super(HospitalAppointment, self).create(values)
         return res
+
+    @api.onchange('doctor_id', )
+    def on_change_doctor_id(self):
+        print('changes')
+        if self.doctor_id:
+            domain = [(self.doctor_id, '=', self.patient_id.appointment_ids)]
+            patient = self.env['hospital.appointment'].search(domain)
+            if patient:
+                self.patient_id = patient.id
 
     @api.onchange('patient_id', )
     def on_change_patient_id(self):

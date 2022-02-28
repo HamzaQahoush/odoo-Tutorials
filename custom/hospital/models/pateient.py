@@ -18,7 +18,7 @@ class HospitalPatient(models.Model):
 
         """
         res = super(HospitalPatient, self).default_get(fields)
-        res['note'] = 'New  Patient Created'
+        res['note'] = 'New Patient Created'
         return res
 
     name = fields.Char(string='Name', required=True, tracking=True)
@@ -39,16 +39,15 @@ class HospitalPatient(models.Model):
 
     reference = fields.Char(string='Patient Reference', required='True', copy=False, readonly=True,
                             default=lambda self: _('New'))
-    appointment_count = fields.Integer(string='appointments count', tracking=True, compute='_compute_appointment_count')
+    appointment_count = fields.Integer(string='appointments count', compute='_compute_appointment_count')
     image = fields.Binary(string='patient name')
     appointment_ids = fields.One2many('hospital.appointment', 'patient_id', string="Appointments")
 
     def _compute_appointment_count(self):
         for rec in self:
-            print(rec)
             appointment_count = self.env['hospital.appointment'].search_count([('patient_id', '=', rec.id)])
-            # SELECT COUNT(*) FROM hospital.appointment WHERE patient_id = id
             rec.appointment_count = appointment_count
+            # SELECT COUNT(*) FROM hospital.appointment WHERE patient_id = id
 
     def action_confirm(self):
         self.state = 'confirm'
@@ -70,7 +69,6 @@ class HospitalPatient(models.Model):
         if values.get('reference', _('New')) == _('New'):
             values['reference'] = self.env['ir.sequence'].next_by_code('hospital.patient') or _('New')
         # output values= {'state': 'draft', 'name':'Hamza', 'age':'34' }
-        print(values)
         res = super(HospitalPatient, self).create(values)
         return res
 

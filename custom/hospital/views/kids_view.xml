@@ -17,8 +17,6 @@
         </field>
     </record>
 
-        <menuitem id="menu_kids" name="Kids" sequence="10"
-               parent="menu_patient_root" action="action_kids"/>
 
 
 

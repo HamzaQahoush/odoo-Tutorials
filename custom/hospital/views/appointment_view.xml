@@ -171,13 +171,5 @@
         </field>
     </record>
 
-    <menuitem id="appointment_tab" name="Appointments" sequence="2"
-              parent="menu_hospital_root"/>
 
-    <menuitem id="appointment_tab_2" name="appointments" sequence="2"
-              parent="appointment_tab" action="appointments_action"/>
-    <menuitem id="create_appointment_menu" name="Create Appointment " sequence="10"
-              parent="appointment_tab" action="create_appointment_action"/>
-    <menuitem id="menu_search_patient" name="Search Appointment" sequence="24"
-              parent="appointment_tab" action="search_appointment_action"/>
 </odoo>

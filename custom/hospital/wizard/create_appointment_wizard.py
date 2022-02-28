@@ -12,14 +12,13 @@ class CreateAppointmentWizard(models.TransientModel):
     @api.model
     def default_get(self, fields):
         res = super(CreateAppointmentWizard, self).default_get(fields)
-        print('this is from default get', self._context)
         if self._context.get('active_id'):
             res['patient_id'] = self._context.get('active_id')
         return res
 
     def create_appointment_action(self):
         """
-        method to insert data from wizard into data base
+        method to insert data from wizard into database
         -vals:: data will be inserted from wizard, and it's value from model.
         - self.env['table.name'].create(vals) :: method will take values and insert it in required table instance of class .
           it will create a record.
@@ -31,7 +30,6 @@ class CreateAppointmentWizard(models.TransientModel):
             'doctor_id': self.doctor_id.id,
             'date_appointment': self.appointment_date
         }
-        print(vals)
         appointment_rec = self.env['hospital.appointment'].create(vals)
         return {
             'name': _('appointment'),

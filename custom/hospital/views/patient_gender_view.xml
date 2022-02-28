@@ -16,8 +16,6 @@
         </field>
     </record>
 
-    <menuitem id="male_tab" name="Male" sequence="15"
-              parent="menu_patient_root" action="male_action"/>
 
 
     <record id="female_action" model="ir.actions.act_window">
@@ -35,8 +33,6 @@
         </field>
     </record>
 
-    <menuitem id="female_tab" name="Female" sequence="14"
-              parent="menu_patient_root" action="female_action"/>
 
 
 </odoo>

@@ -20,6 +20,8 @@ class HospitalDoctor(models.Model):
     image = fields.Binary(string='doctor image')
     appointment_count = fields.Integer(string='appointments count', tracking=True, compute='_compute_appointment_count')
     active = fields.Boolean(string="Active", default=True)
+    # newly added
+    doctor_appointment_ids = fields.One2many('hospital.patient', 'appointment_ids', string='doctor_appointment_ids')
 
     def copy(self, default=None):
         if default is None:

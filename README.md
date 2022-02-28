@@ -555,3 +555,30 @@ add `options="{'no_create': True, 'no_create_edit':True}"` to the field you want
 - import `py` it from `__init__`
 - set the class name as in the record. `name="report_name"`
 
+### add new item in selction field in Model.
+```
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    type = fields.Selection(selection_add=[
+        ('test', 'test'), ('field_position_before')
+    ], ondelete={'test': 'set default'},ondelete={'test2': 'cascade'} )
+    
+    
+    # we have many option : set null / cascade 
+```
+
+ ```
+ selection = [('a', 'A'), ('b', 'B')]
+
+  selection_add = [('c', 'C'), ('b',)]
+
+  > result = [('a', 'A'), ('c', 'C'), ('b', 'B')]
+ ```
+
+
+### Sales videos :
+- create Quotation
+- set variant to product for example : for specfic color higer price.
+- online Quotation , send by mail , design an template and send it to user.
+- 

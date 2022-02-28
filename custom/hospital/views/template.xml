@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="patient_page_template" name="hospital patient">
+            <t t-call="website.layout">
+                Hello THis is my first view.
+                <t t-foreach="patients" t-as="p">
+                    <t t-esc="p.name"/>
+                    <br/>
+                    <t t-esc="p.age"/>
+
+                </t>
+
+            </t>
+
+        </template>
+    </data>
+</odoo>
