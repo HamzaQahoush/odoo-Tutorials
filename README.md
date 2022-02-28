@@ -579,6 +579,26 @@ class ProductTemplate(models.Model):
 
 ### Sales videos :
 - create Quotation
-- set variant to product for example : for specfic color higer price.
-- online Quotation , send by mail , design an template and send it to user.
+- set variant to product for example : for specific color higher price.
+- online Quotation , send by mail , design a template and send it to user.
+- Delivery : we can add it a free based on total amount or set some rules depends on weight, volume,
+- Pricelists :Set multiple prices per product, automated discounts, etc. from sales -> configuration-> price list
+  - we specify the pricelist from contact -> Sales and purchase tab 
+
+
+
+### purchase videos :
+- **request for Quotation** :also known as an invitation for bid (IFB)
 - 
+- **Purchase Order Approval** : Request managers to approve orders above a minimum amount.
+- Reordering Rules :
+- select a product from sales--> product
+- click on reordering 
+- create a reordering form , set the product , min , max quantity , lead time etc...
+- select the vendor from purchase -- save
+- create a quotation 
+- run a scheduler -> from inventory->operation-> run scheduler
+- Purchase Agreements  : Manage your purchase agreements (call for tenders, blanket orders)
+- purchase agreement : to call for tenders .
+- 3 way matching :To make sure you only pay bills for which you received the goods you ordered.
+
