@@ -1,0 +1,18 @@
+{
+    'name': 'check sales order',
+    'version': '1.1',
+    'summary': '',
+    'sequence': 10,
+    'description': """add button to check sales order""",
+    'category': 'Sales',
+    'website': '',
+    'depends': ['sale',
+                'purchase',
+                ],
+    'data': ['views/quotation_view.xml'],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
