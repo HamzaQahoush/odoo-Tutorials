@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='action_cancel']" position="after">
-                <button name="product_qty_location_check" string="Create PO" type="object" attrs="{'invisible':[['state','in',['draft','sent','done','cancel']]]}"/>
+                <button name="check_available_products" string="Create PO" type="object" attrs="{'invisible':[['state','in',['draft','sent','done','cancel']]]}"/>
 
             </xpath>
 
