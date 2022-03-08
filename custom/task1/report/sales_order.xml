@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_sales_order">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                    <h2>Sale order Details</h2>
+                </div>
+                <div t-foreach="sales_order_count" t-as="count">
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+
+                        <table>
+                            <tr>
+                                <td>
+                                    Customer
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                                <td>
+                                    <t t-if="form_data.get('partner_id')">
+                                        <t t-esc="form_data['partner_id'][1]"/>
+                                    </t>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Order ID
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                                <td>
+
+
+                                    <t t-if="count">
+                                        <t t-esc="count"/>
+                                    </t>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date from
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                                <td>
+                                    <t t-if="form_data.get('from_date')">
+                                        <t t-esc="form_data['from_date']"/>
+                                    </t>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date to
+                                </td>
+                                <td>
+                                    :
+                                </td>
+                                <td>
+                                    <t t-if="form_data.get('to_date')">
+                                        <t t-esc="form_data['to_date']"/>
+                                    </t>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        <br/>
+                        <table class="table table-sm o_main_table">
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th name="th_description" class="text-left">Description</th>
+                                    <th name="th_quantity" class="text-right">Quantity</th>
+                                    <th name="th_priceunit" class="text-right">Unit Price</th>
+                                    <th name="th_discount" t-if="display_discount" class="text-right"
+                                    >
+                                        <span>Disc.%</span>
+                                    </th>
+                                    <th name="th_subtotal" class="text-right">
+                                        <span>Amount</span>
+
+                                    </th>
+                                    <th name="th_total" class="text-right">
+                                        <span>Total Price</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+
+                                <t t-set="current_subtotal" t-value="0"/>
+
+                                <t t-foreach="order_lines" t-as="line">
+                                     <t t-if="line['order_id'][1] == count" >
+
+
+
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line['price_subtotal']"
+                                        />
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line['price_total']"
+                                        />
+
+                                        <tr>
+                                            <t t-if="not line['display_type']">
+                                                <td name="td_name">
+                                                    <span t-esc="line['name']"/>
+                                                </td>
+                                                <td name="td_quantity" class="text-right">
+                                                    <span t-esc="line['product_uom_qty']"/>
+                                                </td>
+                                                <td name="td_priceunit" class="text-right">
+                                                    <span t-esc="line['price_unit']"/>
+                                                </td>
+                                                <td t-if="display_discount" class="text-right"
+                                                >
+                                                    <span t-esc="line['discount']"/>
+                                                </td>
+
+                                                <td name="td_subtotal" class="text-right o_price_total">
+                                                    <span t-esc="line['price_subtotal']"
+                                                    />
+                                                </td>
+                                                <td name="td_total" class="text-right ">
+                                                    <span t-esc="line['price_total']"
+                                                    />
+
+                                                </td>
+                                            </t>
+
+                                        </tr>
+
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </t>
+
+        </t>
+    </template>
+
+
+</odoo>

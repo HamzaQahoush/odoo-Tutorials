@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="search_purchase_form" model="ir.ui.view">
+        <field name="name">search.purchase.wizard</field>
+        <field name="model">search.purchase.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Search Customer">
+                <group class="oe_title">
+
+<!--                    <field name="partner_id" options="{'no_create': True, 'no_create_edit':True}"/>-->
+
+                </group>
+                <group >
+                     <field name="from_date"/>
+                     <field name="to_date"/>
+
+                </group>
+                <footer>
+
+                    <button name="print_pdf" type="object" string="Print PDF"
+                            class="btn-primary"/>
+                    <button name="print_excel" type="object" string="Print Excel"
+                            class="btn-primary"/>
+
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="search_purchase_action" model="ir.actions.act_window">
+        <field name="name">search purchase</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">search.purchase.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="search_purchase_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

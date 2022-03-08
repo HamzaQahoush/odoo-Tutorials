@@ -8,8 +8,20 @@
     'website': '',
     'depends': ['sale',
                 'purchase',
+                'report_xlsx'
                 ],
-    'data': ['views/quotation_view.xml'],
+    'data': [
+        'security/ir.model.access.csv',
+        'wizard/search_customer_view.xml',
+        'wizard/search_purchase.xml',
+        'report/report.xml',
+        'report/sales_order.xml',
+        'views/menu.xml',
+        'views/quotation_view.xml',
+
+
+
+        ],
     'demo': [],
     'qweb': [],
     'installable': True,

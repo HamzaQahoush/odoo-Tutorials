@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_search_customers_wizard,access.search.customers.wizard,model_search_customers_wizard,,1,1,1,1
+access_search_purchase_wizard,access.search.purchase.wizard,model_search_purchase_wizard,,1,1,1,1
+
 

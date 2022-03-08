@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_view_customers" name="View Customers" sequence="2"
+              parent="sale.menu_sale_report" action="search_customer_action"/>
+
+
+    <menuitem id="menu_print_report" name="view inventory" sequence="1"
+              parent="purchase.purchase_report" action="search_purchase_action"/>
+
+
+</odoo>
