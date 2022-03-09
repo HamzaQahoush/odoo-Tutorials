@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_view_customers" name="View Customers" sequence="2"
+    <menuitem id="menu_view_customers" name="Sale orders By Customer" sequence="2"
               parent="sale.menu_sale_report" action="search_customer_action"/>
 
 
