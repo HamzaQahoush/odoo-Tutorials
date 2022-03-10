@@ -14,15 +14,38 @@
 
     </record>
 
-        <record id="report_sales_order_xls" model="ir.actions.report">
+    <record id="report_sales_order_xls" model="ir.actions.report">
         <field name="name">Sales order details</field>
         <field name="model">search.customers.wizard</field>
         <field name="report_type">xlsx</field>
         <field name="report_name">task1.report_customer_sales_xlsx</field>
-        <field name="report_file">hospital.report_customer_sales_xlsx</field>
+        <field name="report_file">task1.report_customer_sales_xlsx</field>
         <field name="binding_model_id" ref="model_search_customers_wizard"/>
         <field name="binding_type">report</field>
 
+    </record>
+
+
+    <record id="action_report_purchase_order" model="ir.actions.report">
+        <field name="name">Purchase order details</field>
+        <field name="model">search.purchase.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">task1.report_purchase_order</field>
+        <field name="report_file">task1.report_purchase_order</field>
+        <field name="binding_model_id" ref="model_search_purchase_wizard"/>
+        <field name="binding_type">report</field>
+
+
+    </record>
+
+    <record id="report_purchase_orders_xls" model="ir.actions.report">
+        <field name="name">Purchase order details</field>
+        <field name="model">search.purchase.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">task1.report_purchase_orders_xlsx</field>
+        <field name="report_file">task1.report_purchase_orders_xlsx</field>
+        <field name="binding_model_id" ref="model_search_purchase_wizard"/>
+        <field name="binding_type">report</field>
 
     </record>
 </odoo>

@@ -16,6 +16,7 @@
         'wizard/search_purchase.xml',
         'report/report.xml',
         'report/sales_order.xml',
+        'report/purchase_order.xml',
         'views/menu.xml',
         'views/quotation_view.xml',
 
